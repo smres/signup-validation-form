@@ -74,8 +74,7 @@ function signIn(event) {
 let isEyeHide1 = true;
 let isEyeHide2 = true;
 function showHidePassword(mode) {
-  if (passwordInput.value.length !== 0) {
-    if (mode === "1") {
+    if (mode === "1" && passwordInput.value.length !== 0) {
       if (isEyeHide1) {
         passwordInput.type = "text";
         eyeStatus.src = "./close-eye.svg";
@@ -85,7 +84,7 @@ function showHidePassword(mode) {
         eyeStatus.src = "./open-eye.svg";
         isEyeHide1 = true;
       }
-    } else if (mode === "2") {
+    } else if (mode === "2" && repeatPasswordInput.value.length !== 0) {
       if (isEyeHide2) {
         repeatPasswordInput.type = "text";
         repeatEyeStatus.src = "./close-eye.svg";
