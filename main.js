@@ -74,33 +74,32 @@ function signIn(event) {
 let isEyeHide1 = true;
 let isEyeHide2 = true;
 function showHidePassword(mode) {
-    if (mode === "1" && passwordInput.value.length !== 0) {
-      if (isEyeHide1) {
-        passwordInput.type = "text";
-        eyeStatus.src = "./close-eye.svg";
-        isEyeHide1 = false;
-      } else {
-        passwordInput.type = "password";
-        eyeStatus.src = "./open-eye.svg";
-        isEyeHide1 = true;
-      }
-    } else if (mode === "2" && repeatPasswordInput.value.length !== 0) {
-      if (isEyeHide2) {
-        repeatPasswordInput.type = "text";
-        repeatEyeStatus.src = "./close-eye.svg";
-        isEyeHide2 = false;
-      } else {
-        repeatPasswordInput.type = "password";
-        repeatEyeStatus.src = "./open-eye.svg";
-        isEyeHide2 = true;
-      }
+  if (mode === "1" && passwordInput.value.length !== 0) {
+    if (isEyeHide1) {
+      passwordInput.type = "text";
+      eyeStatus.src = "./close-eye.svg";
+      isEyeHide1 = false;
+    } else {
+      passwordInput.type = "password";
+      eyeStatus.src = "./open-eye.svg";
+      isEyeHide1 = true;
+    }
+  } else if (mode === "2" && repeatPasswordInput.value.length !== 0) {
+    if (isEyeHide2) {
+      repeatPasswordInput.type = "text";
+      repeatEyeStatus.src = "./close-eye.svg";
+      isEyeHide2 = false;
+    } else {
+      repeatPasswordInput.type = "password";
+      repeatEyeStatus.src = "./open-eye.svg";
+      isEyeHide2 = true;
     }
   }
 }
 
 passwordInput.addEventListener("input", () => {
   if (passwordInput.value.length === 0) {
-    isEyeHide1 = true
+    isEyeHide1 = true;
     passwordInput.type = "password";
     eyeStatus.src = "./open-eye.svg";
   }
@@ -108,7 +107,7 @@ passwordInput.addEventListener("input", () => {
 
 repeatPasswordInput.addEventListener("input", () => {
   if (repeatPasswordInput.value.length === 0) {
-    isEyeHide2 = true
+    isEyeHide2 = true;
     repeatPasswordInput.type = "password";
     repeatEyeStatus.src = "./open-eye.svg";
   }
