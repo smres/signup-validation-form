@@ -11,6 +11,7 @@ const repeatEyeStatus = document.querySelector(".repeat-eye-status");
 
 signinBtn.addEventListener("click", signIn);
 
+var ifSendData = true;
 function signIn(event) {
   event.preventDefault();
   usernameMsg.innerText = "";
@@ -19,39 +20,41 @@ function signIn(event) {
   const userNameValue = usernameInput.value;
   const passwordValue = passwordInput.value;
   const repeatPasswordValue = repeatPasswordInput.value;
-  let ifSendData = true;
 
-  if (
-    (userNameValue.indexOf("@") === -1 || userNameValue.indexOf(".") === -1) &&
-    userNameValue.length !== 0
-  ) {
-    usernameMsg.innerText = "Email is not Valid.";
-    ifSendData = false;
-  } else if (userNameValue.length === 0) {
-    usernameMsg.innerText = "Please enter a valid Email.";
-    ifSendData = false;
-  }
+  // if (
+  //   (userNameValue.indexOf("@") === -1 || userNameValue.indexOf(".") === -1) &&
+  //   userNameValue.length !== 0
+  // ) {
+  //   usernameMsg.innerText = "Email is not Valid.";
+  //   ifSendData = false;
+  // } else if (userNameValue.length === 0) {
+  //   usernameMsg.innerText = "Please enter a valid Email.";
+  //   ifSendData = false;
+  // }
+  checkUserName();
 
-  if (passwordValue.length <= 4 && passwordValue.length !== 0) {
-    passwordMsg.innerText = "Password can't less than 5 character.";
-    ifSendData = false;
-  } else if (passwordValue.length === 0) {
-    passwordMsg.innerText = "Please enter your password.";
-    ifSendData = false;
-  }
+  // if (passwordValue.length <= 4 && passwordValue.length !== 0) {
+  //   passwordMsg.innerText = "Password can't less than 5 character.";
+  //   ifSendData = false;
+  // } else if (passwordValue.length === 0) {
+  //   passwordMsg.innerText = "Please enter your password.";
+  //   ifSendData = false;
+  // }
+  checkPassword();
 
-  if (repeatPasswordValue.length <= 4 && repeatPasswordValue.length !== 0) {
-    repeatPasswordMsg.innerText = "Password can't less than 5 character.";
-    ifSendData = false;
-  } else if (repeatPasswordValue.length === 0) {
-    repeatPasswordMsg.innerText = "Please enter your confirm password.";
-    ifSendData = false;
-  }
+  // if (repeatPasswordValue.length <= 4 && repeatPasswordValue.length !== 0) {
+  //   repeatPasswordMsg.innerText = "Password can't less than 5 character.";
+  //   ifSendData = false;
+  // } else if (repeatPasswordValue.length === 0) {
+  //   repeatPasswordMsg.innerText = "Please enter your confirm password.";
+  //   ifSendData = false;
+  // }
+  checkConfirmPassword();
 
-  if (repeatPasswordValue !== passwordValue) {
-    repeatPasswordMsg.innerText = "Password is not same.";
-    ifSendData = false;
-  }
+  // if (repeatPasswordValue !== passwordValue) {
+  //   repeatPasswordMsg.innerText = "Password is not same.";
+  //   ifSendData = false;
+  // }
 
   if (ifSendData) {
     const body = JSON.stringify({
@@ -97,18 +100,75 @@ function showHidePassword(mode) {
   }
 }
 
-passwordInput.addEventListener("input", () => {
-  if (passwordInput.value.length === 0) {
+usernameInput.addEventListener("input", checkUserName);
+
+passwordInput.addEventListener("input", checkPassword);
+
+repeatPasswordInput.addEventListener("input", checkConfirmPassword);
+
+// ===============================
+function checkUserName() {
+  usernameMsg.innerText = "";
+  const userNameValue = usernameInput.value;
+  ifSendData = true;
+  if (
+    (userNameValue.indexOf("@") === -1 || userNameValue.indexOf(".") === -1) &&
+    userNameValue.length !== 0
+  ) {
+    usernameMsg.innerText = "Email is not Valid.";
+    ifSendData = false;
+  } else if (userNameValue.length === 0) {
+    usernameMsg.innerText = "Please enter a valid Email.";
+    ifSendData = false;
+  }
+}
+
+function checkPassword() {
+  passwordMsg.innerText = "";
+  const passwordValue = passwordInput.value;
+  const repeatPasswordValue = repeatPasswordInput.value;
+  // ifSendData = true;
+  if (passwordValue.length === 0) {
     isEyeHide1 = true;
-    passwordInput.type = "password";
+    passwordValue.type = "password";
     eyeStatus.src = "./open-eye.svg";
   }
-});
 
-repeatPasswordInput.addEventListener("input", () => {
-  if (repeatPasswordInput.value.length === 0) {
+  if (passwordValue.length <= 4 && passwordValue.length !== 0) {
+    passwordMsg.innerText = "Password can't less than 5 character.";
+    ifSendData = false;
+  } else if (passwordValue.length === 0) {
+    passwordMsg.innerText = "Please enter your password.";
+    ifSendData = false;
+  }
+  
+  if (repeatPasswordValue !== passwordValue) {
+    repeatPasswordMsg.innerText = "Password is not same.";
+    ifSendData = false;
+  }
+}
+
+function checkConfirmPassword() {
+  repeatPasswordMsg.innerText = "";
+  const passwordValue = passwordInput.value;
+  const repeatPasswordValue = repeatPasswordInput.value;
+  // ifSendData = true;
+  if (repeatPasswordValue.length === 0) {
     isEyeHide2 = true;
-    repeatPasswordInput.type = "password";
+    repeatPasswordValue.type = "password";
     repeatEyeStatus.src = "./open-eye.svg";
   }
-});
+
+  if (repeatPasswordValue.length <= 4 && repeatPasswordValue.length !== 0) {
+    repeatPasswordMsg.innerText = "Password can't less than 5 character.";
+    ifSendData = false;
+  } else if (repeatPasswordValue.length === 0) {
+    repeatPasswordMsg.innerText = "Please enter your confirm password.";
+    ifSendData = false;
+  }
+  
+  if (repeatPasswordValue !== passwordValue) {
+    repeatPasswordMsg.innerText = "Password is not same.";
+    ifSendData = false;
+  }
+}
